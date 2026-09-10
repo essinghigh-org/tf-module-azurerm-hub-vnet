@@ -19,6 +19,6 @@ resource "azurerm_route_table" "public_rt" {
 resource "azurerm_subnet_route_table_association" "public_route" {
   count = var.subnets.public.route_table_enabled ? 1 : 0
 
-  subnet_id      = azurerm_subnet.public_subnet[0].id
+  subnet_id      = azurerm_subnet.public_subnet.id
   route_table_id = azurerm_route_table.public_rt[0].id
 }
