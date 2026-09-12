@@ -15,3 +15,11 @@ output "subnets" {
     azurerm_subnet.additional,
   )
 }
+
+output "network_security_groups" {
+  description = "Subnet network security groups created by this module, keyed by subnet name."
+  value = merge(
+    local.management_nsg_enabled ? { management = module.management_nsg[0] } : {},
+    { for key, nsg in module.additional_subnet_nsg : key => nsg },
+  )
+}
