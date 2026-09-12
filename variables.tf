@@ -102,6 +102,28 @@ variable "additional_subnets" {
       name    = string
       actions = list(string)
     })), {})
+    nsg = optional(object({
+      enabled  = optional(bool, true)
+      name     = optional(string)
+      profiles = optional(list(string), [])
+      rules = optional(map(object({
+        priority                                   = number
+        direction                                  = string
+        access                                     = string
+        protocol                                   = optional(string, "*")
+        description                                = optional(string)
+        source_port_range                          = optional(string)
+        source_port_ranges                         = optional(list(string))
+        destination_port_range                     = optional(string)
+        destination_port_ranges                    = optional(list(string))
+        source_address_prefix                      = optional(string)
+        source_address_prefixes                    = optional(list(string))
+        source_application_security_group_ids      = optional(list(string))
+        destination_address_prefix                 = optional(string)
+        destination_address_prefixes               = optional(list(string))
+        destination_application_security_group_ids = optional(list(string))
+      })), {})
+    }))
   }))
   default  = {}
   nullable = false
